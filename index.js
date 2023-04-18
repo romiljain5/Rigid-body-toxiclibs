@@ -6,6 +6,8 @@ const {Vec2D, Rect} = toxi.geom;
 
 let physics;
 let particleA;
+let particleB;
+let spring;
 
 function setup() {
     createCanvas(640, 360);
@@ -18,7 +20,12 @@ function setup() {
     physics.setWorldBounds(bounds);
 
     particleA = new VerletParticle2D(320, 100);
+    particleB = new VerletParticle2D(320, 200);
     physics.addParticle(particleA);
+    physics.addParticle(particleB);
+
+    spring = new VerletSpring2D(particleA, particleB, 100, 0.5);
+    physics.addSpring(spring) //spring between 2 particles
 }
 
 function draw() {
@@ -28,4 +35,6 @@ function draw() {
 
     fill(0)
     circle(particleA.x, particleA.y, 16)
+    circle(particleB.x, particleB.y, 16)
+    line(particleA.x, particleA.y, particleB.x, particleB.y);
 }
