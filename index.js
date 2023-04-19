@@ -12,19 +12,23 @@ function setup() {
     createCanvas(640, 360);
     
     physics = new VerletPhysics2D();
-    // let gravity = new GravityBehavior(new Vec2D(0, 1));
-    // physics.addBehavior(gravity); //need to add everything to physics world
+    let gravity = new GravityBehavior(new Vec2D(0, 1));
+    physics.addBehavior(gravity); //need to add everything to physics world
 
     let bounds = new Rect(0, 0, width, height); //rectangle for setting boundaries
     physics.setWorldBounds(bounds);
 
     particles.push(new Particle(320, 100));
+    particles.push(new Particle(325, 150));
     particles.push(new Particle(320, 200));
     particles.push(new Particle(200, 100));
 
     springs.push(new Spring(particles[0], particles[1], 100, 0.1));
     springs.push(new Spring(particles[1], particles[2], 100, 0.1));
-    springs.push(new Spring(particles[2], particles[0], 100, 0.1));
+    springs.push(new Spring(particles[2], particles[3], 100, 0.1));
+    springs.push(new Spring(particles[3], particles[0], 100, 0.1));
+    springs.push(new Spring(particles[3], particles[1], 100, 0.1));
+    springs.push(new Spring(particles[0], particles[2], 100, 0.1));
 }
 
 function draw() {
@@ -45,5 +49,8 @@ function draw() {
     // line(particleA.x, particleA.y, particleB.x, particleB.y);
     springs[0].show(particles[0], particles[1]);
     springs[1].show(particles[1], particles[2]);
-    springs[2].show(particles[2], particles[0]);
+    springs[2].show(particles[2], particles[3]);
+    springs[3].show(particles[3], particles[0]);
+    springs[4].show(particles[3], particles[1]);
+    springs[5].show(particles[0], particles[2]);
 }
